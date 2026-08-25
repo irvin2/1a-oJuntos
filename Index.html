@@ -1,1 +1,98 @@
 
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nuestro Universo — Nephy 💜</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap');
+:root{--bg:#070313;--v:#9b5cff;--l:#ddb8ff;--m:#c7b8d9}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#070313;color:#fff;font-family:Nunito,Arial,sans-serif}
+body{overflow-x:hidden;background:radial-gradient(circle at 50% 15%,#64278b66,transparent 35%),linear-gradient(#090313,#150622 55%,#070313)}
+canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+#game{position:relative;z-index:1}.screen{display:none;min-height:100vh;padding:18px;align-items:center;justify-content:center}.screen.active{display:flex}
+.box{width:min(950px,100%);background:#12081fdd;border:1px solid #a66cff55;border-radius:28px;padding:clamp(22px,5vw,48px);box-shadow:0 30px 100px #000b,0 0 60px #8e49ff18;backdrop-filter:blur(12px)}
+.center{text-align:center}.tiny{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--l);font-weight:800}
+h1{font:normal clamp(35px,7vw,72px)/1.15 'Press Start 2P';margin:20px 0;text-shadow:0 0 25px #a75dff88}
+h2{font:normal clamp(23px,5vw,42px)/1.45 'Press Start 2P';margin:22px 0}.gradient{background:linear-gradient(90deg,#fff,#e4baff,#b878ff);-webkit-background-clip:text;color:transparent}
+p{font-size:16px;line-height:1.85;color:#ddd0e9}.subtitle{max-width:680px;margin:auto}.moon{font-size:70px;filter:drop-shadow(0 0 30px #bb77ff);animation:float 4s ease-in-out infinite}
+.date{margin:20px;color:#d7b8ff;font-weight:800}.btn{border:1px solid #c98cff88;background:linear-gradient(135deg,#9b5cff33,#ff9de722);color:white;border-radius:999px;padding:14px 24px;font:800 14px Nunito;cursor:pointer;transition:.25s;box-shadow:0 0 25px #9b5cff25}.btn:hover{transform:translateY(-2px);box-shadow:0 0 35px #9b5cff55}
+.gamehead{display:flex;justify-content:space-between;gap:10px}.hud{font-weight:800}.bar{height:10px;border-radius:99px;background:#ffffff10;overflow:hidden;margin:10px 0 18px}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#7c3cff,#f0a6ff);transition:.4s}
+.map{position:relative;height:min(58vh,520px);min-height:360px;border-radius:22px;overflow:hidden;border:1px solid #b875ff35;background:radial-gradient(circle at 70% 30%,#6e2da055,transparent 20%),radial-gradient(circle at 20% 75%,#53259a55,transparent 25%),#080412}
+.map:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#ffffff05 1px,transparent 1px),linear-gradient(90deg,#ffffff05 1px,transparent 1px);background-size:45px 45px}
+.player,.goal,.collect{position:absolute;z-index:2}.player{font-size:38px;filter:drop-shadow(0 0 12px #d38cff);transition:.12s}.goal{font-size:35px;right:7%;top:7%}.label{position:absolute;right:4%;top:19%;background:#10061ddd;padding:5px 8px;border-radius:8px;font-size:11px;color:#d9c4eb}.collect{font-size:23px;cursor:pointer;animation:twinkle 1.4s infinite alternate}
+.controls{display:grid;grid-template-columns:repeat(3,60px);gap:7px;justify-content:center;margin-top:14px}.controls button{height:52px;border:1px solid #b978ff55;background:#ffffff09;color:#fff;border-radius:14px;font-size:20px}.up{grid-column:2}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}.card{padding:22px;border-radius:20px;background:#ffffff07;border:1px solid #ffffff12;cursor:pointer}.card:hover{border-color:#bd7cff55;transform:translateY(-3px)}.emoji{font-size:31px}.card h3{margin:8px 0}.card p{font-size:13px;color:var(--m)}
+.memory{text-align:center;margin-top:18px;padding:22px;border-radius:18px;background:#080410;border:1px solid #c77cff22}.memory p{margin:0;font-size:17px}
+.bigheart{font-size:78px;animation:pulse 1.5s infinite}.signature{color:#e0b9ff;font-weight:800;font-size:19px}.footer{font-size:11px;color:#806a96;margin-top:25px}
+@keyframes float{50%{transform:translateY(-10px)}}@keyframes twinkle{to{transform:scale(1.35);filter:drop-shadow(0 0 12px #fff)}}@keyframes pulse{50%{transform:scale(1.12)}}
+@media(max-width:600px){.screen{padding:10px}.box{border-radius:20px;padding:20px}.map{min-height:400px}.controls{grid-template-columns:repeat(3,55px)}}
+</style>
+</head>
+<body>
+<canvas id="space"></canvas>
+<div id="game">
+
+<section id="start" class="screen active"><div class="box center">
+<div class="moon">🌙</div><div class="tiny">Una pequeña aventura para alguien especial</div>
+<h1><span class="gradient">NUESTRO<br>UNIVERSO</span></h1>
+<p class="subtitle">Una historia que comenzó en un videojuego... y terminó convirtiéndose en uno de mis lugares favoritos: <b>nosotros.</b></p>
+<div class="date">25 · 08 · 2025 → 25 · 08 · 2026</div><button class="btn" onclick="go('s1')">▶ COMENZAR</button>
+<div class="footer">Hecho para mi Nephy 💜 · Feliz primer aniversario</div></div></section>
+
+<section id="s1" class="screen"><div class="box center"><div class="tiny">Nivel 01 · El comienzo</div><h2>Todo comenzó jugando... 🎮</h2>
+<p>Entre partidas, conversaciones y casualidades apareció una persona que no sabía que iba a convertirse en alguien tan importante para mí.</p>
+<p><b>Jasmín.</b> Aunque yo prefiero decirte <b>Nephy</b>. 💜</p><button class="btn" onclick="go('s2')">Seguir la historia ✦</button></div></section>
+
+<section id="s2" class="screen"><div class="box"><div class="gamehead"><div class="tiny">Nivel 02 · Encuéntrame</div><div class="hud">⭐ <span id="score">0</span>/5</div></div>
+<div class="bar"><i id="scorebar"></i></div><p style="text-align:center;color:var(--m)">Mueve a tu personaje y recoge las 5 estrellas. En celular usa los botones.</p>
+<div class="map" id="map"><div class="player" id="player" style="left:8%;top:75%">🧍‍♀️</div><div class="goal">🧍‍♂️</div><div class="label">✨ aquí estoy</div></div>
+<div class="controls"><button class="up" onclick="move(0,-1)">▲</button><button onclick="move(-1,0)">◀</button><button onclick="move(0,1)">▼</button><button onclick="move(1,0)">▶</button></div></div></section>
+
+<section id="s3" class="screen"><div class="box center"><div class="tiny">Nivel 03 · Lo que encontré en ti</div><h2>Entre tantas estrellas, te encontré a ti. 🌌</h2>
+<p>Hay muchas cosas que me gustan de ti, pero hay dos que siempre vuelven a mi cabeza.</p>
+<div class="cards">
+<div class="card" onclick="memory('🌷 Tu forma de ser','Me encanta esa forma tuya de ser tú. Tu manera de hablar, de reaccionar y de hacerme sentir acompañado. No cambiaría esa esencia que te hace ser Nephy.')"><div class="emoji">🌷</div><h3>Tu forma de ser</h3><p>Toca para descubrirlo</p></div>
+<div class="card" onclick="memory('🎙️ Tu voz','Podría escucharte durante muchísimo tiempo. Tu voz tiene algo que me encanta y que hace que la distancia se sienta un poquito más pequeña.')"><div class="emoji">🎙️</div><h3>Tu voz</h3><p>Toca para descubrirlo</p></div>
+<div class="card" onclick="memory('💜 Tú','Y después de todo, la razón más sencilla es la mejor: me gustas por ser tú. Mi Jasmín. Mi Nephy.')"><div class="emoji">💜</div><h3>Simplemente tú</h3><p>Toca para descubrirlo</p></div>
+</div><div id="memory" class="memory"><p>Elige una estrella para abrir un recuerdo.</p></div><br><button class="btn" onclick="go('s4')">Continuar ✦</button></div></section>
+
+<section id="s4" class="screen"><div class="box center"><div class="tiny">Nivel 04 · La distancia</div><h2>Hay algo que no hemos podido vencer... 🌙</h2>
+<p>Los kilómetros.</p><p>Pero este año me enseñó que la distancia puede hacer que extrañemos a alguien... <b>pero no puede decidir cuánto queremos a esa persona.</b></p>
+<div style="font-size:45px;margin:28px">🌎 ✦ ✦ ✦ ✦ ✦ 🌙</div><p>Y aunque todavía nos falte ese abrazo que tantas veces hemos querido, hay una misión que sigue activa:</p><h2 style="font-size:21px">🔒 ESTAR JUNTOS</h2><p style="color:#d9b3ff">Estado: <b>EN PROGRESO...</b></p>
+<button class="btn" onclick="go('s5')">No abandonar la misión ❤️</button></div></section>
+
+<section id="s5" class="screen"><div class="box center"><div class="tiny">Nivel 05 · 365 días</div><h2>¡Misión completada! ⭐</h2><div style="font-size:62px;margin:15px">365</div>
+<p><b>días</b> · 8,760 horas · 525,600 minutos</p><p>365 días de recuerdos para llevarnos al resto de la historia.</p><button class="btn" onclick="go('s6')">Ver la última misión ✦</button></div></section>
+
+<section id="s6" class="screen"><div class="box center"><div class="tiny">Nivel Final · Nuestro futuro</div><h2>Hay cosas que todavía no hemos desbloqueado... 🔮</h2>
+<div class="cards"><div class="card"><div class="emoji">🤗</div><h3>Primer abrazo</h3><p>Bloqueado por la distancia.</p></div><div class="card"><div class="emoji">📸</div><h3>Primera foto juntos</h3><p>Esperando ser desbloqueada.</p></div><div class="card"><div class="emoji">🌌</div><h3>Ver las estrellas</h3><p>Algún día, sin una pantalla entre nosotros.</p></div><div class="card"><div class="emoji">❤️</div><h3>Muchos aniversarios</h3><p>Este apenas es el primero.</p></div></div><br><button class="btn" onclick="go('s7')">Desbloquear el final 💜</button></div></section>
+
+<section id="s7" class="screen"><div class="box center"><div class="bigheart">💜</div><div class="tiny">Misión completada</div>
+<h2>Feliz primer aniversario, Nephy</h2><p>Hace un año te encontré en un videojuego.</p><p>Hoy puedo decir que encontrarte fue una de las casualidades más bonitas que me ha regalado la vida.</p><p>Gracias por tu forma de ser.<br>Gracias por tu voz.<br>Gracias por cada conversación, cada risa y cada día.</p><p><b>Y si pudiera volver a ese primer día...</b></p><p style="font-size:23px;color:#e4b9ff">te volvería a elegir. ❤️</p><div class="signature">25 · 08 · 2026<br>Para mi Nephy, con todo mi cariño. 💜</div><br><button class="btn" onclick="go('s8')">Hay un último secreto... 🌙</button></div></section>
+
+<section id="s8" class="screen"><div class="box center"><div class="tiny">Secreto desbloqueado</div><h2>Para cuando me extrañes 🌙</h2>
+<p>Si algún día estás triste o me extrañas, vuelve aquí.</p><p>Imagínate que todas estas estrellas son un pedacito de mí diciéndote:</p><h2 style="font-size:24px;color:#ddb1ff">“Estoy aquí, Nephy.”</h2>
+<p>Y cuando llegue el día en que podamos estar juntos, quiero que volvamos a mirar este juego y podamos decir:</p><p style="font-size:21px"><b>“Lo logramos.”</b> 🥹💜</p>
+<div style="margin-top:25px"><div class="tiny">🎙️ Tu mensaje para ella</div><audio controls style="width:100%;margin-top:12px"><source src="MI_AUDIO_AQUI.mp3" type="audio/mpeg">Tu navegador no puede reproducir audio.</audio><div class="footer">Pon tu grabación como <b>MI_AUDIO_AQUI.mp3</b> junto a este HTML.</div></div>
+<br><button class="btn" onclick="location.reload()">↻ Jugar otra vez</button></div></section>
+</div>
+
+<script>
+const ids=['start','s1','s2','s3','s4','s5','s6','s7','s8'];
+function go(id){ids.forEach(x=>document.getElementById(x).classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0)}
+function memory(t,x){document.getElementById('memory').innerHTML='<p><b>'+t+'</b><br>'+x+'</p>'}
+const map=document.getElementById('map'),player=document.getElementById('player');let px=8,py=75,score=0;
+const spots=[[22,20],[46,70],[70,48],[35,42],[78,78]];
+spots.forEach((s,i)=>{const e=document.createElement('div');e.className='collect';e.textContent=i%2?'✦':'⭐';e.style.left=s[0]+'%';e.style.top=s[1]+'%';e.onclick=()=>collect(e);map.appendChild(e)});
+function move(dx,dy){px=Math.max(4,Math.min(90,px+dx*4));py=Math.max(6,Math.min(90,py+dy*5));player.style.left=px+'%';player.style.top=py+'%';check()}
+function check(){document.querySelectorAll('.collect').forEach(e=>{if(e.dataset.got)return;const a=e.getBoundingClientRect(),b=player.getBoundingClientRect();if(Math.abs(a.left-b.left)<38&&Math.abs(a.top-b.top)<38)collect(e)})}
+function collect(e){if(e.dataset.got)return;e.dataset.got=1;e.style.visibility='hidden';score++;document.getElementById('score').textContent=score;document.getElementById('scorebar').style.width=score*20+'%';if(score===5)setTimeout(()=>go('s3'),900)}
+addEventListener('keydown',e=>{if(!document.getElementById('s2').classList.contains('active'))return;if(e.key==='ArrowUp')move(0,-1);if(e.key==='ArrowDown')move(0,1);if(e.key==='ArrowLeft')move(-1,0);if(e.key==='ArrowRight')move(1,0)});
+const c=document.getElementById('space'),ctx=c.getContext('2d');let bg=[];
+function resize(){c.width=innerWidth*devicePixelRatio;c.height=innerHeight*devicePixelRatio;ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);bg=Array.from({length:Math.min(180,Math.floor(innerWidth/6))},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.4+.2,a:Math.random()*.7+.2}))}
+function draw(){ctx.clearRect(0,0,innerWidth,innerHeight);bg.forEach(s=>{ctx.globalAlpha=s.a;ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill()});ctx.globalAlpha=1;requestAnimationFrame(draw)}addEventListener('resize',resize);resize();draw();
+</script>
+</body>
+</html>
